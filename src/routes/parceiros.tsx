@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState, type FormEvent } from "react";
+import { useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { z } from "zod";
-import { ArrowDown, ArrowUpRight, Check, Minus } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Check } from "lucide-react";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -63,15 +63,15 @@ const faqs = [
   ["Vocês pagam comissão por indicação?", "Não. O Código de Ética do CAU não permite pagar por indicação de clientes. O que oferecemos é prazo e preço fechados, que ajudam você a fechar e entregar mais obras."],
 ];
 
-function Eyebrow({ children, inverse = false }: { children: React.ReactNode; inverse?: boolean }) {
+function Eyebrow({ children, inverse = false }: { children: ReactNode; inverse?: boolean }) {
   return <p className={`font-label text-[11px] font-bold tracking-[2px] uppercase ${inverse ? "text-travertine" : "text-bronze"}`}>{children}</p>;
 }
 
-function SectionTitle({ children }: { children: React.ReactNode }) {
+function SectionTitle({ children }: { children: ReactNode }) {
   return <h2 className="mt-4 max-w-3xl font-editorial text-3xl leading-[1.08] font-normal sm:text-4xl lg:text-5xl">{children}</h2>;
 }
 
-function WhatsappButton({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
+function WhatsappButton({ children, light = false }: { children: ReactNode; light?: boolean }) {
   return <Button asChild className={`min-h-12 rounded-sm px-5 ${light ? "bg-background text-foreground hover:bg-secondary" : "bg-primary text-primary-foreground hover:bg-primary/90"}`}><a href={whatsappUrl} target="_blank" rel="noreferrer">{children}<ArrowUpRight /></a></Button>;
 }
 
@@ -161,10 +161,10 @@ function LeadForm() {
 
   const fieldClass = "mt-2 h-12 rounded-sm border-border bg-background px-4 shadow-none focus-visible:ring-1 focus-visible:ring-foreground";
   const selectClass = `${fieldClass} w-full border text-base outline-none focus:ring-1 focus:ring-foreground`;
-  return <section className="bg-secondary px-5 py-16 sm:px-8 sm:py-24 lg:px-12"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.7fr_1.3fr]"><div><Eyebrow>Parcerias</Eyebrow><SectionTitle>Quer ser parceiro? Deixe seu contato.</SectionTitle><p className="mt-6 max-w-sm leading-7 text-muted-foreground">Conte um pouco sobre a sua operação. Retornamos pelo WhatsApp com a tabela de projetos.</p></div><form onSubmit={handleSubmit} noValidate className="grid gap-5 sm:grid-cols-2">{[
-    ["nome", "Nome", "Seu nome"], ["empresa", "Empresa", "Nome da empresa"], ["cidade", "Cidade", "Sua cidade"]
-  ].map(([name, label, placeholder]) => <div key={name} className={name === "cidade" ? "sm:col-span-1" : ""}><Label htmlFor={name}>{label} *</Label><Input id={name} name={name} placeholder={placeholder} maxLength={name === "empresa" ? 120 : 100} className={fieldClass} aria-invalid={Boolean(errors[name])}/>{errors[name] && <p className="mt-1 text-xs text-destructive">{errors[name]}</p>}</div>)}
+  return <section className="bg-secondary px-5 py-16 sm:px-8 sm:py-24 lg:px-12"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.7fr_1.3fr]"><div><Eyebrow>Parcerias</Eyebrow><SectionTitle>Quer ser parceiro? Deixe seu contato.</SectionTitle><p className="mt-6 max-w-sm leading-7 text-muted-foreground">Conte um pouco sobre a sua operação. Retornamos pelo WhatsApp com a tabela de projetos.</p></div><form onSubmit={handleSubmit} noValidate className="grid gap-5 sm:grid-cols-2">
+  {[["nome", "Nome", "Seu nome"], ["empresa", "Empresa", "Nome da empresa"]].map(([name, label, placeholder]) => <div key={name}><Label htmlFor={name}>{label} *</Label><Input id={name} name={name} placeholder={placeholder} maxLength={name === "empresa" ? 120 : 100} className={fieldClass} aria-invalid={Boolean(errors[name])}/>{errors[name] && <p className="mt-1 text-xs text-destructive">{errors[name]}</p>}</div>)}
   <div><Label htmlFor="tipo">Tipo *</Label><select id="tipo" name="tipo" defaultValue="" className={selectClass} aria-invalid={Boolean(errors.tipo)}><option value="" disabled>Selecione</option>{["Construtora", "Correspondente Caixa", "Imobiliária", "Loteamento", "Outro"].map(v => <option key={v}>{v}</option>)}</select>{errors.tipo && <p className="mt-1 text-xs text-destructive">{errors.tipo}</p>}</div>
+  <div><Label htmlFor="cidade">Cidade *</Label><Input id="cidade" name="cidade" placeholder="Sua cidade" maxLength={100} className={fieldClass} aria-invalid={Boolean(errors.cidade)}/>{errors.cidade && <p className="mt-1 text-xs text-destructive">{errors.cidade}</p>}</div>
   <div><Label htmlFor="whatsapp">WhatsApp *</Label><Input id="whatsapp" name="whatsapp" inputMode="tel" placeholder="(12) 99999-9999" value={phone} onChange={e => setPhone(formatPhone(e.target.value))} className={fieldClass} aria-invalid={Boolean(errors.whatsapp)}/>{errors.whatsapp && <p className="mt-1 text-xs text-destructive">{errors.whatsapp}</p>}</div>
   <div><Label htmlFor="demanda_mensal">Quantos projetos por mês vocês costumam precisar? *</Label><select id="demanda_mensal" name="demanda_mensal" defaultValue="" className={selectClass} aria-invalid={Boolean(errors.demanda_mensal)}><option value="" disabled>Selecione</option>{["Menos de 1", "1 a 2", "3 a 5", "Mais de 5"].map(v => <option key={v}>{v}</option>)}</select>{errors.demanda_mensal && <p className="mt-1 text-xs text-destructive">{errors.demanda_mensal}</p>}</div>
   <div className="sm:col-span-2"><Button type="submit" disabled={status === "loading"} className="min-h-12 w-full rounded-sm bg-primary text-primary-foreground sm:w-auto">{status === "loading" ? "Enviando..." : "Quero receber a tabela"}<ArrowUpRight /></Button>{status === "error" && <p className="mt-3 text-sm text-destructive">Não foi possível enviar agora. Tente novamente ou fale conosco pelo WhatsApp.</p>}</div></form></div></section>;
