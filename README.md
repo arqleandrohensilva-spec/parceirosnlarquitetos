@@ -1,14 +1,18 @@
-# Welcome to your Lovable project
+# NL Arquitetos Partners
+
+Crie uma nova página na rota /parceiros, sem alterar a página atual de diagnóstico. É uma landing page B2B da NL Arquitetos para construtoras e correspondentes Caixa. Ela deve funcionar bem no celular, porque a maioria vai abrir pelo WhatsApp.
 
 This project was built with [Lovable](https://lovable.dev).
 
+**Live app**: https://parceirosnlarquitetos.lovable.app
+
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/148ff1ca-f860-4af9-8d68-97b96887a83a).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +24,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
