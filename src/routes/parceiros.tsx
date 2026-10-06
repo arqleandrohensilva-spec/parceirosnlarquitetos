@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 
-const whatsappUrl = "https://wa.me/5512996235559?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20de%20parceiros%20e%20quero%20receber%20a%20tabela%20de%20projetos%20para%20financiamento%20Caixa.";
+const whatsappUrl = "https://wa.me/5512996235559?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20de%20parceiros%20e%20quero%20conversar%20sobre%20a%20parceria%20de%20projetos%20para%20financiamento%20Caixa.";
 
 const leadSchema = z.object({
   nome: z.string().trim().min(2, "Informe seu nome.").max(100),
@@ -113,7 +113,7 @@ function ParceirosPage() {
             <h1 className="mt-7 max-w-4xl font-display text-[clamp(3rem,7vw,6.8rem)] leading-[.88] font-medium">Seu cliente já tem o crédito. A obra não pode travar no projeto.</h1>
             <p className="mt-8 max-w-2xl text-lg leading-8 text-muted-foreground">Projeto completo para construção financiada pela Caixa, com o que a prefeitura e a agência exigem. Preço fixo por metragem, prazo por escrito e um arquiteto responsável do começo à aprovação.</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <WhatsappButton>Receber a tabela no WhatsApp</WhatsappButton>
+              <WhatsappButton>Falar no WhatsApp</WhatsappButton>
               <Button asChild variant="outline" className="min-h-12 rounded-sm border-foreground bg-transparent px-5"><a href="#pacotes">Ver pacotes e preços<ArrowDown /></a></Button>
             </div>
           </div>
@@ -175,15 +175,15 @@ function LeadForm() {
     setStatus(error ? "error" : "success");
   }
 
-  if (status === "success") return <section className="bg-secondary px-5 py-14 sm:px-8 sm:py-20 lg:px-12"><div className="mx-auto max-w-3xl"><Eyebrow>Contato recebido</Eyebrow><h2 className="mt-4 font-editorial text-4xl leading-tight">Recebemos. Vamos te chamar no WhatsApp ainda hoje com a tabela.</h2><div className="mt-8"><WhatsappButton>Abrir o WhatsApp</WhatsappButton></div></div></section>;
+  if (status === "success") return <section className="bg-secondary px-5 py-14 sm:px-8 sm:py-20 lg:px-12"><div className="mx-auto max-w-3xl"><Eyebrow>Contato recebido</Eyebrow><h2 className="mt-4 font-editorial text-4xl leading-tight">Recebemos. A gente te chama no WhatsApp ainda hoje pra conversar.</h2><div className="mt-8"><WhatsappButton>Abrir o WhatsApp</WhatsappButton></div></div></section>;
 
   const fieldClass = "mt-2 h-12 rounded-sm border-border bg-background px-4 shadow-none focus-visible:ring-1 focus-visible:ring-foreground";
   const selectClass = `${fieldClass} w-full border text-base outline-none focus:ring-1 focus:ring-foreground`;
-  return <section className="bg-secondary px-5 py-14 sm:px-8 sm:py-20 lg:px-12"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.7fr_1.3fr]"><div><Eyebrow>Parcerias</Eyebrow><SectionTitle>Quer ser parceiro? Deixe seu contato.</SectionTitle><p className="mt-6 max-w-sm leading-7 text-muted-foreground">Conte um pouco sobre a sua operação. Retornamos pelo WhatsApp com a tabela de projetos.</p></div><form onSubmit={handleSubmit} noValidate className="grid gap-5 sm:grid-cols-2">
+  return <section className="bg-secondary px-5 py-14 sm:px-8 sm:py-20 lg:px-12"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.7fr_1.3fr]"><div><Eyebrow>Parcerias</Eyebrow><SectionTitle>Quer ser parceiro? Deixe seu contato.</SectionTitle><p className="mt-6 max-w-sm leading-7 text-muted-foreground">Conte um pouco sobre a sua operação e a gente te chama no WhatsApp pra alinhar a parceria.</p></div><form onSubmit={handleSubmit} noValidate className="grid gap-5 sm:grid-cols-2">
   {([{ name: "nome", label: "Nome", placeholder: "Seu nome" }, { name: "empresa", label: "Empresa", placeholder: "Nome da empresa" }] as const).map(({ name, label, placeholder }) => <div key={name}><Label htmlFor={name}>{label} *</Label><Input id={name} name={name} placeholder={placeholder} maxLength={name === "empresa" ? 120 : 100} className={fieldClass} aria-invalid={Boolean(errors[name])}/>{errors[name] && <p className="mt-1 text-xs text-destructive">{errors[name]}</p>}</div>)}
   <div><Label htmlFor="tipo">Tipo *</Label><select id="tipo" name="tipo" defaultValue="" className={selectClass} aria-invalid={Boolean(errors["tipo"])}><option value="" disabled>Selecione</option>{["Construtora", "Correspondente Caixa", "Imobiliária", "Loteamento", "Outro"].map(v => <option key={v}>{v}</option>)}</select>{errors["tipo"] && <p className="mt-1 text-xs text-destructive">{errors["tipo"]}</p>}</div>
   <div><Label htmlFor="cidade">Cidade *</Label><Input id="cidade" name="cidade" placeholder="Sua cidade" maxLength={100} className={fieldClass} aria-invalid={Boolean(errors["cidade"])}/>{errors["cidade"] && <p className="mt-1 text-xs text-destructive">{errors["cidade"]}</p>}</div>
   <div><Label htmlFor="whatsapp">WhatsApp *</Label><Input id="whatsapp" name="whatsapp" inputMode="tel" placeholder="(12) 99999-9999" value={phone} onChange={e => setPhone(formatPhone(e.target.value))} className={fieldClass} aria-invalid={Boolean(errors["whatsapp"])}/>{errors["whatsapp"] && <p className="mt-1 text-xs text-destructive">{errors["whatsapp"]}</p>}</div>
   <div><Label htmlFor="demanda_mensal">Quantos projetos por mês vocês costumam precisar? *</Label><select id="demanda_mensal" name="demanda_mensal" defaultValue="" className={selectClass} aria-invalid={Boolean(errors["demanda_mensal"])}><option value="" disabled>Selecione</option>{["Menos de 1", "1 a 2", "3 a 5", "Mais de 5"].map(v => <option key={v}>{v}</option>)}</select>{errors["demanda_mensal"] && <p className="mt-1 text-xs text-destructive">{errors["demanda_mensal"]}</p>}</div>
-  <div className="sm:col-span-2"><Button type="submit" disabled={status === "loading"} className="min-h-12 w-full rounded-sm bg-primary text-primary-foreground sm:w-auto">{status === "loading" ? "Enviando..." : "Quero receber a tabela"}<ArrowUpRight /></Button>{status === "error" && <p className="mt-3 text-sm text-destructive">Não foi possível enviar agora. Tente novamente ou fale conosco pelo WhatsApp.</p>}</div></form></div></section>;
+  <div className="sm:col-span-2"><Button type="submit" disabled={status === "loading"} className="min-h-12 w-full rounded-sm bg-primary text-primary-foreground sm:w-auto">{status === "loading" ? "Enviando..." : "Quero ser parceiro"}<ArrowUpRight /></Button>{status === "error" && <p className="mt-3 text-sm text-destructive">Não foi possível enviar agora. Tente novamente ou fale conosco pelo WhatsApp.</p>}</div></form></div></section>;
 }
