@@ -59,7 +59,7 @@ const faqs = [
   ["Quais cidades vocês atendem?", "São José dos Campos, Jacareí, Caçapava e Taubaté. Outras cidades da região, consulte."],
   ["Os projetos complementares estão incluídos?", "Não. Estrutural, elétrico e hidráulico ficam com o engenheiro da construtora ou podem ser contratados à parte."],
   ["Quem paga o projeto, a construtora ou o cliente?", "Como for melhor para a sua operação. Fazemos contrato direto com a construtora ou com o cliente final."],
-  ["Como é o pagamento?", "[PREENCHER CONDIÇÕES DE PAGAMENTO]"],
+  ["Como é o pagamento?", "Pix ou cartão de crédito parcelado. A taxa do parcelamento no cartão fica por conta do cliente."],
   ["Vocês pagam comissão por indicação?", "Não. O Código de Ética do CAU não permite pagar por indicação de clientes. O que oferecemos é prazo e preço fechados, que ajudam você a fechar e entregar mais obras."],
 ];
 
@@ -137,7 +137,7 @@ function ParceirosPage() {
 
       <section className="bg-primary px-5 py-14 text-primary-foreground sm:px-8 sm:py-20 lg:px-12"><div className="mx-auto max-w-7xl"><Eyebrow inverse>Próximo passo</Eyebrow><h2 className="mt-5 max-w-4xl font-display text-5xl leading-[.95] font-medium sm:text-6xl lg:text-7xl">Tem um cliente parado esperando projeto?</h2><p className="mt-7 max-w-xl text-lg leading-8 text-primary-foreground/80">Mande uma mensagem. Respondemos com a tabela e o prazo para o caso dele.</p><div className="mt-8"><WhatsappButton light>Falar com um arquiteto no WhatsApp</WhatsappButton></div><p className="mt-5 font-label text-xs tracking-[2px] text-travertine">(12) 99623-5559</p></div></section>
 
-      <footer className="border-t border-border px-5 py-8 sm:px-8 lg:px-12"><div className="mx-auto flex max-w-7xl flex-col gap-4 font-label text-[10px] leading-5 tracking-[2px] uppercase sm:flex-row sm:justify-between"><p className="text-bronze">NL Arquitetos · A arquitetura como decisão</p><p>nlarquitetos.com.br · CAU [PREENCHER Nº]</p></div></footer>
+      <footer className="border-t border-border px-5 py-8 sm:px-8 lg:px-12"><div className="mx-auto flex max-w-7xl flex-col gap-4 font-label text-[10px] leading-5 tracking-[2px] uppercase sm:flex-row sm:justify-between"><p className="text-bronze">NL Arquitetos · A arquitetura como decisão</p><p>nlarquitetos.com.br · CAU A203598-7 / A203599-5</p></div></footer>
     </main>
   );
 }
